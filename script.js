@@ -7,7 +7,7 @@ const gameBoard = (() => {
 
 const player = (icon) => {
   function move(coordinate) {
-    gameBoard.board[2] = icon;
+    gameBoard.board[coordinate] = icon;
     displayController.gridMove(coordinate, icon);
   }
   return { move };
@@ -15,17 +15,26 @@ const player = (icon) => {
 
 const displayController = ((board) => {
   function gridConstruction(board) {
-    for (let i = 0; i < 3; i++) {
-      const gridRow = document.createElement("div");
-      gridRow.className = "gridRow";
-      for (let j = 0; j < 3; j++) {
-        let cellNumber = i * j;
-        const cell = document.createElement("div");
-        cell.className = "cell" + cellNumber;
-        cell.innerHTML = "-";
-        gridRow.appendChild(cell);
-      }
-      grid.appendChild(gridRow);
+    // let cellNumber = 0;
+    // for (let i = 0; i < 3; i++) {
+    //   const gridRow = document.createElement("div");
+    //   gridRow.className = "gridRow";
+    //   for (let j = 0; j < 3; j++) {
+    //     const cell = document.createElement("div");
+    //     cell.className = "cell" + cellNumber;
+    //     console.log(cell.className);
+    //     cell.innerHTML = "-";
+    //     gridRow.appendChild(cell);
+    //     cellNumber++;
+    //   }
+    //   grid.appendChild(gridRow);
+    // }
+    for (let i = 0; i < 9; i++) {
+      const cell = document.createElement("div");
+      cell.className = "cell" + i;
+      console.log(cell.className);
+      cell.innerHTML = "-";
+      grid.appendChild(cell);
     }
   }
   function gridMove(coordinate, icon) {
@@ -49,13 +58,23 @@ function application() {
         computer = player("x");
       }
       buttonsContainer.style.display = "none";
-      grid.style.display = "flex";
+      // grid.style.display = "flex";
+      grid.style.display = "grid";
     });
   });
 
   displayController.gridConstruction(gameBoard.board);
-  //   user.move(2);
+  // user.move(2);
   //   computer.move(1);
+  const cells = body.querySelectorAll(".grid div");
+  cells.forEach(function (cell) {
+    cell.addEventListener("click", function () {
+      let cellName = cell.className;
+      let cellNum = parseInt(cellName[cellName.length - 1]);
+      // console.log(cellNum);
+      user.move(cellNum);
+    });
+  });
 }
 
 document.addEventListener("DOMContentLoaded", application);
