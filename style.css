@@ -13,3 +13,21 @@
 .gridRow {
   /* display: flex; */
 }
+
+.buttons-container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 8rem;
+}
+
+.buttons button {
+  width: 2rem;
+  /* justify-content: center; */
+}
