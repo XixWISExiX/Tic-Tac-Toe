@@ -1,39 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
 * {
   margin: 0;
   padding: 0;
+  font-family: "Inter", sans-serif;
 }
 
 body {
   display: flex;
   justify-content: center;
+  height: 100vh;
+  align-items: center;
 }
 
 .grid {
-  font-size: 2rem;
-  width: 200px;
-  /* display: flex; */
+  font-size: 8rem;
+  font-weight: 600;
   display: none;
   justify-content: space-between;
+  background-color: black;
+  padding-right: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
-.gridRow {
-  /* display: flex; */
+.gridRow div {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
 }
 
 .buttons-container {
+  font-weight: 600;
+  font-size: 4rem;
   text-align: center;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
+.buttons-text {
+  margin-bottom: 4rem;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
-  width: 8rem;
+  width: min(32rem, 50vw);
 }
 
 .buttons button {
-  width: 2rem;
-  /* justify-content: center; */
+  border: 0.1rem solid black;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  width: 8rem;
+  height: 3rem;
+}
+
+.buttons button:hover {
+  background-color: #d6d3d1;
+}
+
+.buttons button:active {
+  background-color: #a8a29e;
 }
