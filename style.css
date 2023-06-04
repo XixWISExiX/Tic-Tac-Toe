@@ -3,10 +3,16 @@
   padding: 0;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
 .grid {
   font-size: 2rem;
   width: 200px;
-  display: flex;
+  /* display: flex; */
+  display: none;
   justify-content: space-between;
 }
 

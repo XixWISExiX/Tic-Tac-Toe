@@ -1,3 +1,5 @@
+import { body, grid } from "./DOMref.js";
+
 const gameBoard = (() => {
   let board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
   return { board };
@@ -8,11 +10,10 @@ const player = (icon) => {
     gameBoard.board[2] = icon;
     displayController.gridMove(coordinate, icon);
   }
-  return { icon, move };
+  return { move };
 };
 
 const displayController = ((board) => {
-  const grid = document.querySelector(".grid");
   function gridConstruction(board) {
     for (let i = 0; i < 3; i++) {
       const gridRow = document.createElement("div");
@@ -35,11 +36,26 @@ const displayController = ((board) => {
 })();
 
 function application() {
+  let user, computer;
+  const buttonsContainer = body.querySelector(".buttons-container");
+  const buttons = buttonsContainer.querySelectorAll("button");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.id === "x") {
+        user = player("x");
+        computer = player("o");
+      } else {
+        user = player("o");
+        computer = player("x");
+      }
+      buttonsContainer.style.display = "none";
+      grid.style.display = "flex";
+    });
+  });
+
   displayController.gridConstruction(gameBoard.board);
-  const user = player("x");
-  const computer = player("o");
-  user.move(2);
-  computer.move(1);
+  //   user.move(2);
+  //   computer.move(1);
 }
 
 document.addEventListener("DOMContentLoaded", application);
