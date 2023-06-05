@@ -1,4 +1,4 @@
-import { body, grid, popUp, popUpText } from "./DOMref.js";
+import { body, grid, popUp, popUpText, playAgain } from "./DOMref.js";
 
 const gameBoard = (() => {
   let board = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
@@ -53,11 +53,18 @@ const displayController = ((board) => {
       grid.appendChild(cell);
     }
   }
+  function wipeGrid() {
+    for (let i = 0; i < 9; i++) {
+      const cell = body.querySelector(".cell" + i);
+      cell.innerHTML = "-";
+      gameBoard.board[i] = "-";
+    }
+  }
   function gridMove(coordinate, icon) {
     const cell = grid.querySelector(".cell" + coordinate);
     cell.innerHTML = icon;
   }
-  return { gridConstruction, gridMove };
+  return { gridConstruction, gridMove, wipeGrid };
 })();
 
 function application() {
@@ -80,7 +87,6 @@ function application() {
 
   displayController.gridConstruction(gameBoard.board);
   // User Picks the cell to play
-  // let userIsWinner = false;
   const cells = body.querySelectorAll(".grid div");
   cells.forEach(function (cell) {
     cell.addEventListener("click", function () {
@@ -89,11 +95,13 @@ function application() {
       if (!gameBoard.validMove(userCellNum)) return;
       user.move(userCellNum);
       if (gameBoard.findWinner(user.icon)) {
-        endMatchDisplay(user);
+        endMatchDisplay(0);
         return;
       }
-      if (gameBoard.findTie()) return;
-      // console.log(gameBoard.findTie());
+      if (gameBoard.findTie()) {
+        endMatchDisplay(2);
+        return;
+      }
       // Computer Picks the cell to play
       let computerCellNum = Math.floor(Math.random() * 9);
       while (!gameBoard.validMove(computerCellNum)) {
@@ -101,24 +109,27 @@ function application() {
       }
       computer.move(computerCellNum);
       if (gameBoard.findWinner(computer.icon)) {
-        // computer.isWinner = true;
-        endMatchDisplay(computer);
+        endMatchDisplay(1);
         return;
       }
-      // console.log(gameBoard.findWinner(computer.icon));
     });
   });
-  function endMatchDisplay(user) {
+  function endMatchDisplay(matchResult) {
+    let textDisplay;
+    if (matchResult === 0) {
+      textDisplay = "You Win!";
+    } else if (matchResult === 1) {
+      textDisplay = "You Lose!";
+    } else {
+      textDisplay = "It's a Tie!";
+    }
     popUp.style.display = "block";
-    popUpText.innerHTML = "You win!";
+    popUpText.innerHTML = textDisplay;
+    playAgain.addEventListener("click", () => {
+      popUp.style.display = "none";
+      displayController.wipeGrid();
+    });
   }
-  // console.log(userIsWinner);
-  // if (user.isWinner) {
-  //   console.log("You Win!");
-  // }
-  // if (computer.isWinner) {
-  //   console.log("You Lose!");
-  // }
 }
 
 document.addEventListener("DOMContentLoaded", application);

@@ -4,4 +4,5 @@ const grid = body.querySelector(".grid");
 // const oButton = body.getElementsById("o");
 const popUp = body.querySelector(".pop-up");
 const popUpText = popUp.querySelector(".pop-up-text");
-export { body, grid, popUp, popUpText };
+const playAgain = popUp.querySelector(".play-again");
+export { body, grid, popUp, popUpText, playAgain };
