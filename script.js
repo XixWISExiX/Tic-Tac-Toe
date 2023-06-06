@@ -49,14 +49,14 @@ const displayController = ((board) => {
     for (let i = 0; i < 9; i++) {
       const cell = document.createElement("div");
       cell.className = "cell" + i;
-      cell.innerHTML = "-";
+      cell.innerHTML = "";
       grid.appendChild(cell);
     }
   }
   function wipeGrid() {
     for (let i = 0; i < 9; i++) {
       const cell = body.querySelector(".cell" + i);
-      cell.innerHTML = "-";
+      cell.innerHTML = "";
       gameBoard.board[i] = "-";
     }
   }
